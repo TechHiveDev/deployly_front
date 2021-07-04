@@ -1,12 +1,16 @@
+require("dotenv").config({
+  path: __dirname+'/.env'
+})
+
 export default {
   server: {
-    port: 8001
+    port: process.env.PORT,
   },
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    titleTemplate: '%s - AutoDeploy',
-    title: 'auto_deploy_front',
+    titleTemplate: process.env.TITILE+' | %s',
+    title: process.env.TITILE,
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
@@ -29,42 +33,35 @@ export default {
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
 
-  // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
-    // https://go.nuxtjs.dev/eslint
-    // '@nuxtjs/eslint-module',
-    // https://go.nuxtjs.dev/vuetify
     '@nuxtjs/vuetify'
   ],
 
-  // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     '@nuxtjs/axios',
     '@nuxtjs/auth-next',
     '@nuxtjs/pwa',
     '@nuxtjs/router',
-    "vue-sweetalert2/nuxt"
+    "vue-sweetalert2/nuxt",
+    "@nuxtjs/dotenv"
   ],
 
-  // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
-    baseURL: 'http://localhost:3000'
+    baseURL: process.env.API_URL
   },
 
-  // PWA module configuration: https://go.nuxtjs.dev/pwa
   pwa: {
     manifest: {
       lang: 'en'
     }
   },
 
-  // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
   vuetify: {
     customVariables: ['~/assets/variables.scss']
   },
 
-  // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
+
   },
 
   auth: {
