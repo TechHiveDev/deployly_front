@@ -41,13 +41,16 @@
                   <v-col v-for="project in groups[tap].projects" :key="project.id" cols="4" md="4">
                     <v-card>
                       <v-card-text>
-                        <h3>
-                          {{ project.name }}
-                        </h3>
+                        <router-link style="text-decoration: none" :to="{name:'projects.single',params:{id:project.id,name:project.name}}">
+                          <h3>
+                            {{ project.name }}
+                            <v-icon size="18">mdi mdi-arrow-right</v-icon>
+                          </h3>
+                        </router-link>
                         <br>
                         Repo URL: <a target="_blank" :href="project.repoUrl">Click Here</a> <br>
                         Last Update At: {{ project.lastUpdate }} <br>
-                        Last Update Status: <v-chip dark :color="project.lastUpdateStatus=='success'? 'green' : 'red'">{{ project.lastUpdateStatus }}</v-chip> <br>
+                        Last Update Status: <v-chip dark :color="statusColors[project.lastUpdateStatus]">{{ project.lastUpdateStatus }}</v-chip> <br>
                       </v-card-text>
                     </v-card>
                   </v-col>
@@ -84,7 +87,12 @@ export default {
   data () {
     return {
       addIn: null,
-      tap: null
+      tap: null,
+      statusColors: {
+        "success":"green",
+        "failed":"red",
+        "working": "orange"
+      },
     }
   },
   methods: {

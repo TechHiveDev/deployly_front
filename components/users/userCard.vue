@@ -6,7 +6,7 @@
           <v-avatar class="mx-auto" :color="randomColor"
                     size="60">
             <v-img :src="randomAvatar" aspect-ratio="1" contain
-                   height="120" transition />
+                   height="120" />
           </v-avatar>
         </v-col>
         <v-col cols="9" md="9">

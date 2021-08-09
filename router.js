@@ -12,6 +12,7 @@ const routes = [
 
   {path: '/groups', name: 'groups', component: page('groups/index.vue')},
   {path: '/groups/:id/:name?', name: 'groups.single', component: page('groups/single.vue')},
+  {path: '/project/:id/:name?', name: 'projects.single', component: page('projects/single.vue')},
 
   {path: '/users', name: 'users', component: page('users/index.vue')},
 

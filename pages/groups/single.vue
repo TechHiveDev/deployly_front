@@ -71,9 +71,9 @@
 <script>
 import UserCard from "../../components/users/userCard";
 export default {
-  name: "single",
+  name: "singleGroup",
   components: {UserCard},
-  async asyncData({params,$axios,error}) {
+  async asyncData({params,$axios,error,store}) {
     try {
       const group = await $axios.$get(`projectGroups/${params.id}`);
       return {group: group}
@@ -81,12 +81,12 @@ export default {
       error({statusCode:404,message:'Group Not Found'})
     }
   },
-  head(){
+  head () {
     return {
       title: this.$route.params.name.replace('_',' ')
     }
   },
-  data(){
+  data () {
     return {
       error: null,
       dialog: false,
@@ -108,13 +108,13 @@ export default {
           group_id: this.group.id
         })
         await this.$store.dispatch('groups/updateGroup',this.group.id);
-        this.groups = req;
+        this.group = this.$store.state.groups.groups.filter(group => group.id === this.$route.params.id)[0];
         this.dialog = this.persistent = this.loading = false;
       } catch (e) {
         this.persistent = this.loading = false;
         this.error = e.response.data.message
         console.log(e.response);
-        return;
+        return false;
       }
     },
     async deleteGroup() {
@@ -131,9 +131,19 @@ export default {
               title: 'Project Group Deleted',
               icon: 'success'
             })
+            try {
+              await this.$store.dispatch('groups/fetchGroups');
+            } catch (e) {
+              console.log(e);
+            }
             await this.$router.push('/groups')
+            try {
+              await this.$store.dispatch('groups/fetchGroups');
+            } catch (e) {
+              console.log(e);
+            }
           } catch (e) {
-            this.$swal.fire({
+            await this.$swal.fire({
               title: 'Failed To Complete Your Action',
               icon: 'error'
             })
@@ -141,7 +151,7 @@ export default {
         }
       })
     }
-  }
+  },
 }
 </script>
 
