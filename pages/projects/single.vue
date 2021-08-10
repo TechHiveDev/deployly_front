@@ -19,7 +19,7 @@
         </v-flex>
         <br>
         <v-btn @click="sendUpdateRequest" dark
-              :disabled="disabled" :loading="disabled" color="blue" >
+              :disabled="loading" :loading="loading" color="blue" >
           <v-icon class="mr-1">mdi mdi-update</v-icon>
           Send Update Request
         </v-btn>
@@ -62,7 +62,6 @@ export default {
         "working": "orange"
       },
       workerOutput: "zZzZ Worker is sleeping.\n",
-      disabled: false
     }
   },
   mounted() {
@@ -70,7 +69,6 @@ export default {
     console.log(channelName)
     this.sc = this.$socket
     this.sc.on(channelName, (data) => {
-      console.log(data);
       this.addText(data.output);
       this.project.lastUpdateStatus = data.status
     })
@@ -92,17 +90,11 @@ export default {
       this.disabled = true
     }
   },
-  watch: {
-    project: function (e) {
-      console.log(e)
-      if (this.project.lastUpdateStatus === "working") {
-        this.disabled = true
-      } else {
-        this.disabled = false
-      }
+  computed: {
+    loading: function () {
+      return (this.project.lastUpdateStatus !== "working")
     }
   }
-
 }
 </script>
 
