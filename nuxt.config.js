@@ -48,7 +48,8 @@ export default {
     '@nuxtjs/pwa',
     '@nuxtjs/router',
     "vue-sweetalert2/nuxt",
-    "@nuxtjs/dotenv"
+    "@nuxtjs/dotenv",
+    'nuxt-socket-io'
   ],
 
   axios: {
@@ -60,6 +61,15 @@ export default {
       lang: 'en'
     }
   },
+
+  io: {
+    // module options
+    sockets: [{
+      name: 'main',
+      url: process.env.WS_HOST
+    }]
+  },
+
 
   vuetify: {
     customVariables: ['~/assets/variables.scss']

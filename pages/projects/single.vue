@@ -67,7 +67,7 @@ export default {
   mounted() {
     const channelName = `project_${this.$route.params.id}`
     console.log(channelName)
-    this.sc = socket('http://localhost:3000')
+    this.sc = this.$nuxtSocket({})
     this.sc.on(channelName, (data) => {
       this.addText(data.output);
       this.project.lastUpdateStatus = data.status
