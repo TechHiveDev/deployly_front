@@ -49,7 +49,6 @@ export default {
     '@nuxtjs/router',
     "vue-sweetalert2/nuxt",
     "@nuxtjs/dotenv",
-    'nuxt-socket-io'
   ],
 
   axios: {
@@ -60,14 +59,6 @@ export default {
     manifest: {
       lang: 'en'
     }
-  },
-
-  io: {
-    // module options
-    sockets: [{
-      name: 'main',
-      url: process.env.WS_HOST
-    }]
   },
 
 
