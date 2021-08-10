@@ -92,7 +92,7 @@ export default {
   },
   computed: {
     loading: function () {
-      return (this.project.lastUpdateStatus !== "working")
+      return (this.project.lastUpdateStatus === "working")
     }
   }
 }
