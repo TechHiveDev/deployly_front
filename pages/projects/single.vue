@@ -71,6 +71,11 @@ export default {
     this.sc.on(channelName, (data) => {
       this.addText(data.output);
       this.project.lastUpdateStatus = data.status
+      if (data.status === "working") {
+        this.disabled = true
+      } else {
+        this.disabled = false
+      }
     })
   },
   methods: {
