@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-main class="blue-grey darken-4">
+    <v-main class="bg">
       <v-container class="fill-height" fluid>
         <nuxt />
       </v-container>
@@ -10,10 +10,26 @@
 
 <script>
 export default {
-  name: "default"
+  name: 'auth'
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+.bg {
+  background-image: url(/bg.webp);
+  background-size: cover;
+  position:relative;
+*{
+  z-index: 10;
+}
+  &:after {
+    content: "";
+    position: absolute;
+    width: 100%;height: 100%;
+    background-color:#000;
+    opacity: 0.3;
+    top: 0;left: 0;
+  }
+}
 
 </style>
