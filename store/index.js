@@ -8,7 +8,7 @@ export const mutations = {
 }
 
 export const actions = {
-  async loadData () {
+  async loadData ({commit}) {
     // get projects
     try {
       const data = await this.$axios.$get('projectGroups')
