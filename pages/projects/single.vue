@@ -56,16 +56,26 @@ export default {
     return {
       sc: null,
       statusColors: {
-        "success": "green",
-        "failed": "red",
-        "working": "orange"
+        success: 'green',
+        failed: 'red',
+        working: 'orange'
       },
-      workerOutput: "zZzZ Worker is sleeping.\n",
+      workerOutput: 'zZzZ Worker is sleeping.\n',
       disabled: false
     }
   },
-  mounted() {
+  watch: {
+    project () {
+      if (this.project.lastUpdateStatus === "working") {
+        this.disabled = true
+      } else {
+        this.disabled = false
+      }
+    }
+  },
+  mounted () {
     const channelName = `project_${this.$route.params.id}`
+    // eslint-disable-next-line no-console
     console.log(channelName)
     this.sc = this.$socket
     this.sc.on(channelName, (data) => {
@@ -79,29 +89,20 @@ export default {
     })
   },
   methods: {
-    addText: function (text) {
+    addText (text) {
       if (this.workerOutput === 'zZzZ Worker is sleeping.\n')  {
         this.workerOutput = text;
       }
       this.workerOutput += text
       this.$refs.codeTextarea.scrollTop = this.$refs.codeTextarea.scrollHeight
     },
-    sendUpdateRequest: function () {
+    sendUpdateRequest () {
       if (this.disabled) {
         this.$swal.fire('Error',"You cann't submit update request while there's one running","warning")
         return
       }
       this.$axios.$post('/worker/trigger/'+this.project.id);
       this.disabled = true
-    }
-  },
-  watch: {
-    project: function () {
-      if (this.project.lastUpdateStatus === "working") {
-        this.disabled = true
-      } else {
-        this.disabled = false
-      }
     }
   }
 

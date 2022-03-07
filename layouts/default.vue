@@ -66,16 +66,16 @@ export default {
       drawer: true
     }
   },
-  mounted () {
-    if (this.$auth.loggedIn) {
-      this.$store.dispatch('loadData')
-    }
-  },
   computed: {
     items () {
       if (!this.$auth.user.isAdmin)
         return menu.list.filter(item => !item.admin)
       return menu.list
+    }
+  },
+  mounted () {
+    if (this.$auth.loggedIn) {
+      this.$store.dispatch('loadData')
     }
   }
 
