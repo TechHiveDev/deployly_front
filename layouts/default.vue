@@ -60,13 +60,18 @@
 import menu from '../data/menu'
 
 export default {
-  data() {
+  data () {
     return {
       title: 'AutoDeploy',
       drawer: true
     }
   },
-  computed : {
+  mounted () {
+    if (this.$auth.loggedIn) {
+      this.$store.dispatch('loadData')
+    }
+  },
+  computed: {
     items () {
       if (!this.$auth.user.isAdmin)
         return menu.list.filter(item => !item.admin)
